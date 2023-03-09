@@ -6,7 +6,7 @@ class NetworkHelper {
 
   final String url;
 
-  Future getData() async {
+  Future<Map<String, dynamic>> getData() async {
     http.Response response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -14,6 +14,7 @@ class NetworkHelper {
       return jsonDecode(data);
     } else {
       print(response.statusCode);
+      return {};
     }
   }
 }

@@ -1,12 +1,13 @@
 import 'package:clima_project/screens/city_screen.dart';
+import 'package:clima_project/services/weather_body.dart';
 import 'package:flutter/material.dart';
 import 'package:clima_project/utilities/constants.dart';
 import 'package:clima_project/services/weather.dart';
 
 class LocationScreen extends StatefulWidget {
-  LocationScreen({super.key, this.locationWeather});
+  LocationScreen({super.key, required this.locationWeather});
 
-  final locationWeather;
+  final WeatherBody locationWeather;
 
   @override
   _LocationScreenState createState() => _LocationScreenState();
@@ -25,7 +26,7 @@ class _LocationScreenState extends State<LocationScreen> {
     updateUI(widget.locationWeather);
   }
 
-  void updateUI(weatherData) {
+  void updateUI(WeatherBody weatherData) {
     setState(() {
       if (weatherData == null) {
         temperature = 0;
@@ -34,11 +35,13 @@ class _LocationScreenState extends State<LocationScreen> {
         cityName = '';
         return;
       }
-      double temp = weatherData['main']['temp'];
+      //  double temp = weatherData['main']['temp'];
+      double temp = weatherData.main.temp;
       temperature = temp.toInt();
-      var condition = weatherData['weather'][0]['id'];
+      // var condition = weatherData['weather'][0]['id'];
+      var condition = weatherData.weather[0].id;
       weatherIcon = weather.getWeatherIcon(condition);
-      cityName = weatherData['name'];
+      cityName = weatherData.name;
       weatherMessage = weather.getMessage(temperature!);
       print(temperature);
     });
